@@ -10,7 +10,7 @@ import (
 	"github.com/vincentwijaya/ventory-be/lib/jwt"
 )
 
-func (w *Module) Login(ctx context.Context, req entity.LoginRequest) (res entity.LoginResponse, err error) {
+func (m *Module) Login(ctx context.Context, req entity.LoginRequest) (res entity.LoginResponse, err error) {
 	//validate input
 	if req.Email == "" || req.Password == "" {
 		err = errs.BadRequest
@@ -20,7 +20,7 @@ func (w *Module) Login(ctx context.Context, req entity.LoginRequest) (res entity
 	//TODO Find data to database then create token from that data
 	claims := jwt.BuildTokenClaims(1, 540, "admin@admin.me", "admin")
 
-	token, err := jwt.CreateToken(claims, w.jwtSecret)
+	token, err := jwt.CreateToken(claims, m.jwtSecret)
 	if err != nil {
 		log.Errorf("failed to generate user token: %v", err)
 		return
