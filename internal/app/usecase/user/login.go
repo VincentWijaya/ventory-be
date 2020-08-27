@@ -18,11 +18,11 @@ func (m *Module) Login(ctx context.Context, req entity.LoginRequest) (res entity
 		return
 	}
 
-	findUser, err := m.userRepo.FindUserByUsernameOrEmail(ctx, req.Username)
+	findUser, err := m.userRepo.FindUserByUsernameOrEmail(ctx, req.Username, req.Username)
 	if err != nil {
 		return
 	}
-	if findUser.ID == 0 {
+	if findUser.ID == 0 || findUser.Status != 1 {
 		err = errs.Unauthorized
 		return
 	}

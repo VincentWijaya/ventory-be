@@ -61,6 +61,11 @@ var (
 			code:    errs.InvalidJwtCode,
 			apiFail: false,
 		},
+		errs.UsernameOrEmailAlreadyExist: {
+			message: errs.UsernameOrEmailAlreadyExistMessage,
+			code:    errs.UsernameOrEmailAlreadyExistCode,
+			apiFail: false,
+		},
 	}
 )
 

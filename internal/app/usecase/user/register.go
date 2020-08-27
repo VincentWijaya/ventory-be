@@ -15,6 +15,15 @@ func (m *Module) Register(ctx context.Context, req entity.RegisterRequest) (err 
 		return
 	}
 
+	findUser, err := m.userRepo.FindUserByUsernameOrEmail(ctx, req.Username, req.Email)
+	if err != nil {
+		return
+	}
+	if findUser.Email != "" {
+		err = errs.UsernameOrEmailAlreadyExist
+		return
+	}
+
 	hashedPassword, err := hash.HashAndSalt(req.Password)
 	if err != nil {
 		return

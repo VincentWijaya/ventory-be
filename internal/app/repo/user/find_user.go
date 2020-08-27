@@ -9,9 +9,7 @@ import (
 	"github.com/vincentwijaya/ventory-be/pkg/log"
 )
 
-func (u *UserModule) FindUserByUsernameOrEmail(ctx context.Context, username string) (res entity.User, err error) {
-	email := username
-
+func (u *UserModule) FindUserByUsernameOrEmail(ctx context.Context, username, email string) (res entity.User, err error) {
 	q := u.MasterDB.Rebind(queries.FindUserByUsernameOrEmail)
 	err = u.MasterDB.Get(ctx, &res, q, username, email)
 	if err == sql.ErrNoRows {

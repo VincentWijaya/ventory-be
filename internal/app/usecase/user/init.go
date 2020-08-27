@@ -8,7 +8,7 @@ import (
 
 type (
 	UserRepository interface {
-		FindUserByUsernameOrEmail(ctx context.Context, username string) (res entity.User, err error)
+		FindUserByUsernameOrEmail(ctx context.Context, username, email string) (res entity.User, err error)
 		FindAllUser(ctx context.Context) (res []entity.User, err error)
 		InsertUser(ctx context.Context, data entity.RegisterRequest) error
 	}
