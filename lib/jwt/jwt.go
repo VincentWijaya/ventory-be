@@ -9,7 +9,7 @@ import (
 
 // BuildTokenClaims ...
 // tokenExpiry in minutes
-func BuildTokenClaims(userID int, tokenExpiry int64, email, userRole string) jwt.MapClaims {
+func BuildTokenClaims(userID int64, tokenExpiry int64, email, userRole string) jwt.MapClaims {
 	expireAt := time.Now().Add(time.Duration(tokenExpiry) * time.Minute)
 	claims := jwt.MapClaims{
 		"exp": expireAt.Unix(),

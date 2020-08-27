@@ -5,4 +5,5 @@ type User struct {
 	Username string `json:"username,omitempty" db:"username"`
 	Email    string `json:"email" db:"email"`
 	Status   int    `json:"status,omitempty" db:"status"`
+	Role     string `json:"role" db:"role"`
 }

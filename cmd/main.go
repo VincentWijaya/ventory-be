@@ -9,6 +9,7 @@ import (
 	"github.com/vincentwijaya/ventory-be/internal/app/handler"
 
 	"github.com/go-chi/chi"
+	userRepo "github.com/vincentwijaya/ventory-be/internal/app/repo/user"
 	userUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/user"
 	"github.com/vincentwijaya/ventory-be/pkg/database"
 	"github.com/vincentwijaya/ventory-be/pkg/log"
@@ -63,8 +64,11 @@ func main() {
 		return
 	}
 
+	// Repository
+	user := userRepo.New(masterDB)
+
 	// Usecase
-	userUsecase := userUC.New(config.Server.JwtSecret)
+	userUsecase := userUC.New(user, config.Server.JwtSecret)
 
 	// Hanlder
 	httpHandler := handler.New(userUsecase)

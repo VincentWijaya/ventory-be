@@ -52,7 +52,7 @@ var (
 			apiFail: false,
 		},
 		errs.Unauthorized: {
-			message: errs.GeneralErrorMessage,
+			message: errs.UnauthorizedMessage,
 			code:    errs.UnauthorizedErrorCode,
 			apiFail: false,
 		},

@@ -1,7 +1,16 @@
 package user
 
+import (
+	"context"
+
+	"github.com/vincentwijaya/ventory-be/internal/entity"
+)
+
 type (
-	UserRepository interface{}
+	UserRepository interface {
+		FindUserByUsernameAndPassword(ctx context.Context, username, password string) (res entity.User, err error)
+		FindAllUser(ctx context.Context) (res []entity.User, err error)
+	}
 )
 
 type Module struct {
@@ -9,9 +18,9 @@ type Module struct {
 	jwtSecret string
 }
 
-func New(jwtSecret string) *Module {
+func New(user UserRepository, jwtSecret string) *Module {
 	return &Module{
-		// userRepo:  user,
+		userRepo:  user,
 		jwtSecret: jwtSecret,
 	}
 }

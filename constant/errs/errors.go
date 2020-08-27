@@ -24,4 +24,5 @@ var (
 	//messages
 	GeneralErrorMessage = "Saat ini sedang terjadi gangguan pada system, silahkan coba beberapa saat lagi"
 	NoDataMessage       = "Data tidak di temukan"
+	UnauthorizedMessage = "Pastikan username ataupun password yang anda masukkan sudah benar"
 )
