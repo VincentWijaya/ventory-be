@@ -56,6 +56,11 @@ var (
 			code:    errs.UnauthorizedErrorCode,
 			apiFail: false,
 		},
+		errs.InvalidJwt: {
+			message: errs.GeneralErrorMessage,
+			code:    errs.InvalidJwtCode,
+			apiFail: false,
+		},
 	}
 )
 

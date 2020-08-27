@@ -7,7 +7,8 @@ import (
 type contextKey int
 
 const (
-	UserIDKey contextKey = iota
+	UserIDKey   contextKey = iota
+	UserRoleKey contextKey = iota
 	SessionCTKey
 )
 
@@ -25,6 +26,20 @@ func (ck contextKey) getInt64(ctx context.Context) int64 {
 	return result
 }
 
+func (ck contextKey) getString(ctx context.Context) string {
+	var (
+		result string
+		ok     bool
+	)
+	if ctx.Value(ck) != nil {
+		result, ok = ctx.Value(ck).(string)
+		if !ok {
+			return ""
+		}
+	}
+	return result
+}
+
 func UserIDFromContext(ctx context.Context) int64 {
 	return UserIDKey.getInt64(ctx)
 }
@@ -32,4 +47,8 @@ func UserIDFromContext(ctx context.Context) int64 {
 func GetSessionFromContext(ctx context.Context) (string, bool) {
 	session, ok := ctx.Value(SessionCTKey).(string)
 	return session, ok
+}
+
+func UserRoleFromContext(ctx context.Context) string {
+	return UserRoleKey.getString(ctx)
 }

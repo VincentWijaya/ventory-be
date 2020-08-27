@@ -10,6 +10,7 @@ type (
 	UserRepository interface {
 		FindUserByUsernameAndPassword(ctx context.Context, username, password string) (res entity.User, err error)
 		FindAllUser(ctx context.Context) (res []entity.User, err error)
+		InsertUser(ctx context.Context, data entity.RegisterRequest) error
 	}
 )
 

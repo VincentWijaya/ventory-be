@@ -10,7 +10,9 @@ import (
 
 	"github.com/go-chi/chi"
 	userRepo "github.com/vincentwijaya/ventory-be/internal/app/repo/user"
+	middlewareUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/middleware"
 	userUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/user"
+
 	"github.com/vincentwijaya/ventory-be/pkg/database"
 	"github.com/vincentwijaya/ventory-be/pkg/log"
 	"gopkg.in/gcfg.v1"
@@ -69,9 +71,10 @@ func main() {
 
 	// Usecase
 	userUsecase := userUC.New(user, config.Server.JwtSecret)
+	middlewareUsecase := middlewareUC.New(config.Server.JwtSecret)
 
 	// Hanlder
-	httpHandler := handler.New(userUsecase)
+	httpHandler := handler.New(userUsecase, middlewareUsecase)
 
 	fmt.Printf("%+v", masterDB)
 
@@ -87,6 +90,9 @@ func main() {
 
 	httpRouter.Route("/v1", func(r chi.Router) {
 		r.Post("/login", httpHandler.Login)
+
+		secureEndpoint := r.With(httpHandler.SessionCheck)
+		secureEndpoint.Post("/register", httpHandler.Register)
 	})
 
 	log.Infof("Service Started on:%v", config.Server.Port)

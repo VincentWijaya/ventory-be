@@ -10,6 +10,7 @@ require (
 	github.com/lib/pq v1.8.0
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/sirupsen/logrus v1.6.0
+	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
 	gopkg.in/gcfg.v1 v1.2.3
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
