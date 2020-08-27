@@ -13,3 +13,15 @@ func HashAndSalt(data string) (result string, err error) {
 
 	return string(hash), nil
 }
+
+func ComparePassword(hashedData, plainData string) bool {
+	byteHashedData := []byte(hashedData)
+	bytePlainData := []byte(plainData)
+
+	err := bcrypt.CompareHashAndPassword(byteHashedData, bytePlainData)
+	if err != nil {
+		return false
+	}
+
+	return true
+}

@@ -6,4 +6,5 @@ type User struct {
 	Email    string `json:"email" db:"email"`
 	Status   int    `json:"status,omitempty" db:"status"`
 	Role     string `json:"role" db:"role"`
+	Password string `json:"password" db:"password"`
 }

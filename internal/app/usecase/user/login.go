@@ -7,6 +7,7 @@ import (
 	"github.com/vincentwijaya/ventory-be/internal/entity"
 	"github.com/vincentwijaya/ventory-be/pkg/log"
 
+	"github.com/vincentwijaya/ventory-be/lib/hash"
 	"github.com/vincentwijaya/ventory-be/lib/jwt"
 )
 
@@ -17,12 +18,17 @@ func (m *Module) Login(ctx context.Context, req entity.LoginRequest) (res entity
 		return
 	}
 
-	//TODO Find data to database then create token from that data
-	findUser, err := m.userRepo.FindUserByUsernameAndPassword(ctx, req.Username, req.Password)
+	findUser, err := m.userRepo.FindUserByUsernameOrEmail(ctx, req.Username)
 	if err != nil {
 		return
 	}
 	if findUser.ID == 0 {
+		err = errs.Unauthorized
+		return
+	}
+
+	comparePassword := hash.ComparePassword(findUser.Password, req.Password)
+	if comparePassword == false {
 		err = errs.Unauthorized
 		return
 	}

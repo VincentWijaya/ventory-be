@@ -9,15 +9,17 @@ import (
 	"github.com/vincentwijaya/ventory-be/pkg/log"
 )
 
-func (u *UserModule) FindUserByUsernameAndPassword(ctx context.Context, username, password string) (res entity.User, err error) {
-	q := u.MasterDB.Rebind(queries.FindUserByUsernameAndPassword)
-	err = u.MasterDB.Get(ctx, &res, q, username, password)
+func (u *UserModule) FindUserByUsernameOrEmail(ctx context.Context, username string) (res entity.User, err error) {
+	email := username
+
+	q := u.MasterDB.Rebind(queries.FindUserByUsernameOrEmail)
+	err = u.MasterDB.Get(ctx, &res, q, username, email)
 	if err == sql.ErrNoRows {
 		err = nil
 		return
 	}
 	if err != nil {
-		log.Errorf("FindUserByUsernameAndPassword: %+v", err)
+		log.Errorf("FindUserByUsernameOrEmail: %+v", err)
 		return
 	}
 
