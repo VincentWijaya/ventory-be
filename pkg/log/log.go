@@ -59,8 +59,8 @@ func InitLogger(env string, conf LogConfig, ctxData []string) {
 		pathMap[logrus.DebugLevel] = conf.StdoutFile
 	}
 	if conf.StderrFile != "" {
-		pathMap[logrus.InfoLevel] = conf.StderrFile
-		pathMap[logrus.ErrorLevel] = conf.StderrFile
+		pathMap[logrus.InfoLevel] = conf.StdoutFile
+		pathMap[logrus.ErrorLevel] = conf.StdoutFile
 	}
 
 	logger.SetFormatter(formatter)

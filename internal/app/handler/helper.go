@@ -27,6 +27,7 @@ func writeResponse(w http.ResponseWriter, data interface{}, err error) {
 		response.Data = data
 	}
 
+	log.Infof("Response: %+v", response)
 	body, _ := json.Marshal(response)
 	_, _ = w.Write(body)
 }

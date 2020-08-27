@@ -6,7 +6,10 @@ import (
 	"os"
 	"time"
 
+	"github.com/vincentwijaya/ventory-be/internal/app/handler"
+
 	"github.com/go-chi/chi"
+	userUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/user"
 	"github.com/vincentwijaya/ventory-be/pkg/database"
 	"github.com/vincentwijaya/ventory-be/pkg/log"
 	"gopkg.in/gcfg.v1"
@@ -21,6 +24,7 @@ type Config struct {
 type ServerConfig struct {
 	Port        string
 	Environment string
+	JwtSecret   string
 }
 
 type LogConfig struct {
@@ -58,6 +62,13 @@ func main() {
 		log.Error("Failed to connect master database:", err)
 		return
 	}
+
+	// Usecase
+	userUsecase := userUC.New(config.Server.JwtSecret)
+
+	// Hanlder
+	httpHandler := handler.New(userUsecase)
+
 	fmt.Printf("%+v", masterDB)
 
 	httpRouter := chi.NewRouter()
@@ -69,6 +80,10 @@ func main() {
 
 	httpRouter.Get("/ping", checker.ping)
 	httpRouter.Get("/health", checker.health)
+
+	httpRouter.Route("/v1", func(r chi.Router) {
+		r.Post("/login", httpHandler.Login)
+	})
 
 	log.Infof("Service Started on:%v", config.Server.Port)
 	err = http.ListenAndServe(config.Server.Port, httpRouter)
