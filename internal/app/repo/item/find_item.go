@@ -23,3 +23,12 @@ func (i *ItemModule) FindItem(ctx context.Context, lastID, dataPerPage int64) (r
 
 	return
 }
+
+func (i *ItemModule) CountItem(ctx context.Context) (res entity.CountData, err error) {
+	q := i.MasterDB.Rebind(queries.CountItem)
+	err = i.MasterDB.Select(ctx, &res, q)
+	if err != nil {
+		return
+	}
+	return
+}
