@@ -42,6 +42,7 @@ func (m *Module) Login(ctx context.Context, req entity.LoginRequest) (res entity
 
 	res.Token = token
 	res.Role = findUser.Role
+	res.ID = findUser.ID
 
 	return
 }

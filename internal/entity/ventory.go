@@ -16,6 +16,7 @@ type (
 	LoginResponse struct {
 		Token string `json:"token"`
 		Role  string `json:"role"`
+		ID    int64  `json:"id"`
 	}
 
 	RegisterRequest struct {
