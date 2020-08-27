@@ -93,6 +93,7 @@ func main() {
 
 		secureEndpoint := r.With(httpHandler.SessionCheck)
 		secureEndpoint.Post("/register", httpHandler.Register)
+		secureEndpoint.Post("/session/verify", httpHandler.VerifySession)
 	})
 
 	log.Infof("Service Started on:%v", config.Server.Port)
