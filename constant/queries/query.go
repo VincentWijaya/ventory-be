@@ -7,5 +7,5 @@ const (
 )
 
 const (
-	GetItemCategory = "SELECT id, name FROM item_category"
+	GetItemCategory = "SELECT id, name FROM item_category WHERE id=? LIMIT ?"
 )

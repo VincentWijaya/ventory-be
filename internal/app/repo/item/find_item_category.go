@@ -9,9 +9,9 @@ import (
 	"github.com/vincentwijaya/ventory-be/pkg/log"
 )
 
-func (i *ItemModule) FindItemCategory(ctx context.Context) (res []entity.ItemCategory, err error) {
+func (i *ItemModule) FindItemCategory(ctx context.Context, lastID, dataPerPage int64) (res []entity.ItemCategory, err error) {
 	q := i.MasterDB.Rebind(queries.GetItemCategory)
-	err = i.MasterDB.Get(ctx, &res, q)
+	err = i.MasterDB.Get(ctx, &res, q, lastID, dataPerPage)
 	if err == sql.ErrNoRows {
 		err = nil
 		return
