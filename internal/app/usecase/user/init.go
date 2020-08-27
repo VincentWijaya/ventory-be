@@ -6,6 +6,10 @@ import (
 	"github.com/vincentwijaya/ventory-be/internal/entity"
 )
 
+const (
+	jwtExpirity = 540 // in minutes
+)
+
 type (
 	UserRepository interface {
 		FindUserByUsernameOrEmail(ctx context.Context, username, email string) (res entity.User, err error)

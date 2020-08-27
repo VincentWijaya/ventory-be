@@ -33,7 +33,7 @@ func (m *Module) Login(ctx context.Context, req entity.LoginRequest) (res entity
 		return
 	}
 
-	claims := jwt.BuildTokenClaims(findUser.ID, 540, findUser.Email, findUser.Role)
+	claims := jwt.BuildTokenClaims(findUser.ID, jwtExpirity, findUser.Email, findUser.Role)
 	token, err := jwt.CreateToken(claims, m.jwtSecret)
 	if err != nil {
 		log.Errorf("failed to generate user token: %v", err)
@@ -41,6 +41,7 @@ func (m *Module) Login(ctx context.Context, req entity.LoginRequest) (res entity
 	}
 
 	res.Token = token
+	res.Role = findUser.Role
 
 	return
 }
