@@ -22,8 +22,9 @@ func (m *Module) SessionCheck(next http.Handler) http.Handler {
 		}
 
 		contextWithUserID := context.WithValue(r.Context(), ctxHelp.UserIDKey, userData.UserID)
-		contextWithUserIDAndUserRole := context.WithValue(contextWithUserID, ctxHelp.UserRoleKey, userData.Role)
-		r = r.WithContext(contextWithUserIDAndUserRole)
+		contextWithUserRole := context.WithValue(contextWithUserID, ctxHelp.UserRoleKey, userData.Role)
+		contextWithSession := context.WithValue(contextWithUserRole, ctxHelp.SessionCTKey, sessionString)
+		r = r.WithContext(contextWithSession)
 		next.ServeHTTP(w, r)
 	}
 	return http.HandlerFunc(fn)

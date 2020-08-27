@@ -26,20 +26,6 @@ func (ck contextKey) getInt64(ctx context.Context) int64 {
 	return result
 }
 
-func (ck contextKey) getString(ctx context.Context) string {
-	var (
-		result string
-		ok     bool
-	)
-	if ctx.Value(ck) != nil {
-		result, ok = ctx.Value(ck).(string)
-		if !ok {
-			return ""
-		}
-	}
-	return result
-}
-
 func UserIDFromContext(ctx context.Context) int64 {
 	return UserIDKey.getInt64(ctx)
 }
@@ -50,5 +36,5 @@ func GetSessionFromContext(ctx context.Context) (string, bool) {
 }
 
 func UserRoleFromContext(ctx context.Context) string {
-	return UserRoleKey.getString(ctx)
+	return ctx.Value(UserRoleKey).(string)
 }
