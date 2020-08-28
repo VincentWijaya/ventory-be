@@ -9,10 +9,11 @@ import (
 	"github.com/vincentwijaya/ventory-be/internal/app/handler"
 
 	"github.com/go-chi/chi"
+	itemRepo "github.com/vincentwijaya/ventory-be/internal/app/repo/item"
 	userRepo "github.com/vincentwijaya/ventory-be/internal/app/repo/user"
+	itemUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/item"
 	middlewareUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/middleware"
 	userUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/user"
-
 	"github.com/vincentwijaya/ventory-be/pkg/database"
 	"github.com/vincentwijaya/ventory-be/pkg/log"
 	"gopkg.in/gcfg.v1"
@@ -68,10 +69,12 @@ func main() {
 
 	// Repository
 	user := userRepo.New(masterDB)
+	item := itemRepo.New(masterDB)
 
 	// Usecase
 	userUsecase := userUC.New(user, config.Server.JwtSecret)
 	middlewareUsecase := middlewareUC.New(config.Server.JwtSecret)
+	_ = itemUC.New(item)
 
 	// Hanlder
 	httpHandler := handler.New(userUsecase, middlewareUsecase)
