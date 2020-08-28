@@ -28,6 +28,7 @@ func (i *ItemModule) CountItemCategory(ctx context.Context) (res entity.CountDat
 	q := i.MasterDB.Rebind(queries.CountItemCategory)
 	err = i.MasterDB.Select(ctx, &res, q)
 	if err != nil {
+		log.Errorf("CountItemCategory: %+v", err)
 		return
 	}
 	return
