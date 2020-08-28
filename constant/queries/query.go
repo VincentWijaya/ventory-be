@@ -37,3 +37,7 @@ const (
 										stock, created_at, updated_at, notes FROM items
 										WHERE id=?`
 )
+
+const (
+	InsertItemHistory = "INSERT INTO `items` (`name`, `category_id`, `buy_price`, `sell_price`, `stock`, `notes`, `created_at`) VALUES (?, ?, ?, ?, ?, ?, ?)"
+)
