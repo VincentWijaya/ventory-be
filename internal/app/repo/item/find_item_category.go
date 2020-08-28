@@ -26,7 +26,7 @@ func (i *ItemModule) FindItemCategory(ctx context.Context, lastID, dataPerPage i
 
 func (i *ItemModule) CountItemCategory(ctx context.Context) (res entity.CountData, err error) {
 	q := i.MasterDB.Rebind(queries.CountItemCategory)
-	err = i.MasterDB.Select(ctx, &res, q)
+	err = i.MasterDB.Get(ctx, &res, q)
 	if err != nil {
 		log.Errorf("CountItemCategory: %+v", err)
 		return

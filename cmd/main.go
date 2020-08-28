@@ -100,6 +100,7 @@ func main() {
 		onlyAdmin := secureEndpoint.With(httpHandler.OnlyAdmin)
 		onlyAdmin.Post("/register", httpHandler.Register)
 		onlyAdmin.Post("/item/", httpHandler.InsertItem)
+		onlyAdmin.Get("/item", httpHandler.GetItem)
 	})
 
 	log.Infof("Service Started on:%v", config.Server.Port)
