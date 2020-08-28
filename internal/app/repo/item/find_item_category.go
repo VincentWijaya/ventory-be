@@ -11,7 +11,7 @@ import (
 
 func (i *ItemModule) FindItemCategory(ctx context.Context, lastID, dataPerPage int64) (res []entity.ItemCategory, err error) {
 	q := i.MasterDB.Rebind(queries.GetItemCategory)
-	err = i.MasterDB.Get(ctx, &res, q, lastID, dataPerPage)
+	err = i.MasterDB.Select(ctx, &res, q, lastID, dataPerPage)
 	if err == sql.ErrNoRows {
 		err = nil
 		return
