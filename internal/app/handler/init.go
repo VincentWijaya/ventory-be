@@ -17,7 +17,7 @@ type (
 	}
 	UsecaseItem interface {
 		InsertItem(ctx context.Context, req entity.Item) (err error)
-		GetItem(ctx context.Context, dataPerPage, lastID string) (res []entity.Item, err error)
+		GetItem(ctx context.Context, dataPerPage, lastID int64) (res entity.GetItemResponse, err error)
 	}
 )
 

@@ -31,3 +31,11 @@ type (
 		Role   string `json:"role"`
 	}
 )
+
+type (
+	GetItemResponse struct {
+		Items          []Item `json:"items"`
+		TotalPage      int64  `json:"totalPage"`
+		MaxDataPerPage int64  `json:"maxDataPerPage"`
+	}
+)

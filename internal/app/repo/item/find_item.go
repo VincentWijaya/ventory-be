@@ -9,7 +9,7 @@ import (
 	"github.com/vincentwijaya/ventory-be/pkg/log"
 )
 
-func (i *ItemModule) FindItem(ctx context.Context, lastID, dataPerPage string) (res []entity.Item, err error) {
+func (i *ItemModule) FindItem(ctx context.Context, lastID, dataPerPage int64) (res []entity.Item, err error) {
 	q := i.MasterDB.Rebind(queries.GetItem)
 	err = i.MasterDB.Select(ctx, &res, q, lastID, dataPerPage)
 	if err == sql.ErrNoRows {

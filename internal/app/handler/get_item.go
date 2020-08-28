@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/vincentwijaya/ventory-be/pkg/log"
 )
@@ -13,11 +14,31 @@ func (m *Module) GetItem(w http.ResponseWriter, r *http.Request) {
 	)
 	ctx := r.Context()
 
-	lastID := r.URL.Query().Get("lastId")
-	dataPerPage := r.URL.Query().Get("max")
+	var (
+		lastID      int64 = 0
+		dataPerPage int64 = 10
+	)
+
+	lastIDFromQuery := r.URL.Query().Get("lastId")
+	dataPerPageFromQuery := r.URL.Query().Get("max")
 
 	log.Infof("Request GetItem: %s", r.URL.Query().Encode())
 
-	_, err = m.item.GetItem(ctx, dataPerPage, lastID)
+	if lastIDFromQuery != "" {
+		n, err := strconv.ParseInt(lastIDFromQuery, 10, 64)
+		if err != nil {
+			panic("Failed to cast last id from query to int64")
+		}
+		lastID = n
+	}
+	if dataPerPageFromQuery != "" {
+		n, err := strconv.ParseInt(dataPerPageFromQuery, 10, 64)
+		if err != nil {
+			panic("Failed to cast data per page from query to int64")
+		}
+		dataPerPage = n
+	}
+
+	response, err = m.item.GetItem(ctx, dataPerPage, lastID)
 	writeResponse(w, response, err)
 }
