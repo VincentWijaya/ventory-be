@@ -5,12 +5,24 @@ import (
 )
 
 type ItemCategory struct {
-	ID           int64  `db:"id"`
-	CategoryName string `db:"name"`
-	CreatedAt    time.Time
-	UpdatedAt    time.Time
+	ID           int64     `json:"id" db:"id"`
+	CategoryName string    `json:"categoryName" db:"name"`
+	CreatedAt    time.Time `json:"createdAt" db:"created_at"`
+	UpdatedAt    time.Time `json:"updatedAt" db:"updated_at"`
 }
 
 type CountData struct {
 	Total int64 `db:"total"`
+}
+
+type Items struct {
+	ID         int64     `json:"id" db:"id"`
+	ItemName   string    `json:"itemName" db:"name"`
+	CategoryID int64     `json:"categoryId" db:"category_id"`
+	BuyPrice   float64   `json:"buyPrice" db:"buy_price"`
+	SellPrice  float64   `json:"sellPrice" db:"sell_price"`
+	Stock      int64     `json:"stock" db:"stock"`
+	Notes      string    `json:"notes" db:"notes"`
+	CreatedAt  time.Time `json:"createdAt" db:"created_at"`
+	UpdatedAt  time.Time `json:"updatedAt" db:"updated_at"`
 }

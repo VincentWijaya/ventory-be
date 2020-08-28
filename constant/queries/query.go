@@ -16,6 +16,9 @@ const (
 										 FROM items as i
 										 JOIN item_category ic ON i.id = ic.id
 										 WHERE i.id >= ? AND i.is_deleted != 1 LIMIT ?`
-	CountItem         = "SELECT COUNT(id) as total FROM items"
-	CountItemCategory = "SELECT COUNT(id) as total FROM item_category"
+	CountItem            = "SELECT COUNT(id) as total FROM items"
+	CountItemCategory    = "SELECT COUNT(id) as total FROM item_category"
+	FindItemByCategoryID = `SELECT id, name, category_id, buy_price, sell_price,
+													stock, created_at, updated_at, notes FROM items
+													WHERE category_id=?`
 )

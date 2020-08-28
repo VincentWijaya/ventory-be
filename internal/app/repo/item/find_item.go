@@ -9,7 +9,7 @@ import (
 	"github.com/vincentwijaya/ventory-be/pkg/log"
 )
 
-func (i *ItemModule) FindItem(ctx context.Context, lastID, dataPerPage int64) (res []entity.ItemCategory, err error) {
+func (i *ItemModule) FindItem(ctx context.Context, lastID, dataPerPage int64) (res []entity.Items, err error) {
 	q := i.MasterDB.Rebind(queries.GetItem)
 	err = i.MasterDB.Get(ctx, &res, q, lastID, dataPerPage)
 	if err == sql.ErrNoRows {
@@ -28,7 +28,23 @@ func (i *ItemModule) CountItem(ctx context.Context) (res entity.CountData, err e
 	q := i.MasterDB.Rebind(queries.CountItem)
 	err = i.MasterDB.Select(ctx, &res, q)
 	if err != nil {
+		log.Errorf("CountItem: %+v", err)
 		return
 	}
+	return
+}
+
+func (i *ItemModule) FindItemByCategory(ctx context.Context, categoryID int64) (res []entity.Items, err error) {
+	q := i.MasterDB.Rebind(queries.FindItemByCategoryID)
+	err = i.MasterDB.Get(ctx, &res, q, categoryID)
+	if err == sql.ErrNoRows {
+		err = nil
+		return
+	}
+	if err != nil {
+		log.Errorf("FindItemByCategory: %+v", err)
+		return
+	}
+
 	return
 }
