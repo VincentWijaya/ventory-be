@@ -12,8 +12,11 @@ const (
 
 // Item Category
 const (
-	GetItemCategory   = "SELECT id, name FROM item_category WHERE id>=? AND is_deleted != 1 LIMIT ?"
-	CountItemCategory = "SELECT COUNT(id) as total FROM item_category"
+	GetItemCategory        = "SELECT id, name FROM item_category WHERE id>=? AND is_deleted != 1 LIMIT ?"
+	CountItemCategory      = "SELECT COUNT(id) as total FROM item_category"
+	InsertItemCategory     = "INSERT INTO `item_category` (`name`) VALUES (?)"
+	UpdateItemCategory     = "UPDATE item_category SET name=?, updated_at=? WHERE id=?"
+	SoftDeleteItemCategory = "UPDATE item_category SET is_deleted=1, updated_at=? WHERE id=?"
 )
 
 // Item
