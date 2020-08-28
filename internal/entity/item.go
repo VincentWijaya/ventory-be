@@ -15,7 +15,7 @@ type CountData struct {
 	Total int64 `db:"total"`
 }
 
-type Items struct {
+type Item struct {
 	ID         int64     `json:"id" db:"id"`
 	ItemName   string    `json:"itemName" db:"name"`
 	CategoryID int64     `json:"categoryId" db:"category_id"`
