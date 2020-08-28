@@ -22,10 +22,10 @@ const (
 // Item
 const (
 	GetItem = `SELECT i.id, ic.name as category_name, i.name as item_name, i.name, i.buy_price, i.sell_price,
-	   								 i.stock, i.notes, i.created_at, i.updated_at
-										 FROM items as i
-										 JOIN item_category ic ON i.id = ic.id
-										 WHERE i.id >= ? AND i.is_deleted != 1 LIMIT ?`
+						 i.stock, i.notes, i.created_at, i.updated_at
+						 FROM items as i
+						 JOIN item_category ic ON i.id = ic.id
+						 WHERE i.id >= ? AND i.is_deleted != 1 LIMIT ?`
 	CountItem            = "SELECT COUNT(id) as total FROM items"
 	FindItemByCategoryID = `SELECT id, name, category_id, buy_price, sell_price,
 													stock, created_at, updated_at, notes FROM items
@@ -33,4 +33,7 @@ const (
 	InsertItem     = "INSERT INTO `items` (`name`, `category_id`, `buy_price`, `sell_price`, `stock`, `notes`) VALUES (?, ?, ?, ?, ?, ?)"
 	UpdateItem     = "UPDATE items SET name=?, category_id=?, buy_price=?, sell_price=?, stock=?, notes=?, updated_at=? WHERE id=?"
 	SoftDeleteItem = "UPDATE items SET is_deleted=, updated_at=? WHERE id=?"
+	FindItemByID   = `SELECT id, name, category_id, buy_price, sell_price,
+										stock, created_at, updated_at, notes FROM items
+										WHERE id=?`
 )
