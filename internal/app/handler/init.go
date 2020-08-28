@@ -15,16 +15,21 @@ type (
 	UsecaseMiddleware interface {
 		ValidateSession(ctx context.Context, sessionString string) (res *jwt.JWTValidateResponse, err error)
 	}
+	UsecaseItem interface {
+		InsertItem(ctx context.Context, req entity.Item) (err error)
+	}
 )
 
 type Module struct {
 	user       UsecaseUser
 	middleware UsecaseMiddleware
+	item       UsecaseItem
 }
 
-func New(user UsecaseUser, middleware UsecaseMiddleware) *Module {
+func New(user UsecaseUser, middleware UsecaseMiddleware, item UsecaseItem) *Module {
 	return &Module{
 		user:       user,
 		middleware: middleware,
+		item:       item,
 	}
 }

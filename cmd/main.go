@@ -74,10 +74,10 @@ func main() {
 	// Usecase
 	userUsecase := userUC.New(user, config.Server.JwtSecret)
 	middlewareUsecase := middlewareUC.New(config.Server.JwtSecret)
-	_ = itemUC.New(item)
+	itemUsecase := itemUC.New(item)
 
 	// Hanlder
-	httpHandler := handler.New(userUsecase, middlewareUsecase)
+	httpHandler := handler.New(userUsecase, middlewareUsecase, itemUsecase)
 
 	fmt.Printf("%+v", masterDB)
 
@@ -99,6 +99,7 @@ func main() {
 
 		onlyAdmin := secureEndpoint.With(httpHandler.OnlyAdmin)
 		onlyAdmin.Post("/register", httpHandler.Register)
+		onlyAdmin.Post("/item/", httpHandler.InsertItem)
 	})
 
 	log.Infof("Service Started on:%v", config.Server.Port)
