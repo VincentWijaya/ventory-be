@@ -21,6 +21,7 @@ const (
 	FindItemByCategoryID = `SELECT id, name, category_id, buy_price, sell_price,
 													stock, created_at, updated_at, notes FROM items
 													WHERE category_id=?`
-	InsertItem = "INSERT INTO `items` (`name`, `category_id`, `buy_price`, `sell_price`, `stock`, `notes`) VALUES (?, ?, ?, ?, ?, ?)"
-	UpdateItem = "UPDATE items SET name=?, category_id=?, buy_price=?, sell_price=?, stock=?, notes=?, updated_at=? WHERE id=?"
+	InsertItem     = "INSERT INTO `items` (`name`, `category_id`, `buy_price`, `sell_price`, `stock`, `notes`) VALUES (?, ?, ?, ?, ?, ?)"
+	UpdateItem     = "UPDATE items SET name=?, category_id=?, buy_price=?, sell_price=?, stock=?, notes=?, updated_at=? WHERE id=?"
+	SoftDeleteItem = "UPDATE items SET is_deleted=, updated_at=? WHERE id=?"
 )

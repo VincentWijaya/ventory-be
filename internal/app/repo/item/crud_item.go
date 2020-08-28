@@ -37,3 +37,19 @@ func (i *ItemModule) UpdateItem(ctx context.Context, item entity.Item) error {
 
 	return err
 }
+
+func (i *ItemModule) SoftDelete(ctx context.Context, itemID int64) error {
+	//Set date time to WIB
+	loc, err := time.LoadLocation("Asia/Jakarta")
+	if err != nil {
+		panic(err)
+	}
+	q := i.MasterDB.Rebind(queries.SoftDeleteItem)
+	_, err = i.MasterDB.Exec(ctx, q, time.Now().In(loc), itemID)
+
+	if err != nil {
+		log.Errorf("SoftDelete: %+v", err)
+	}
+
+	return err
+}
