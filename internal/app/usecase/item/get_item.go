@@ -20,6 +20,7 @@ func (m *Module) GetItem(ctx context.Context, dataPerPage, lastID int64) (res en
 		totalPage = int64(math.Ceil(float64(totalItem.Total) / float64(dataPerPage)))
 	}
 	if totalItem.Total == 0 {
+		res.Items = []entity.Item{}
 		res.TotalPage = 0
 		res.MaxDataPerPage = dataPerPage
 		return
