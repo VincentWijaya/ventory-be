@@ -12,6 +12,7 @@ import (
 	itemRepo "github.com/vincentwijaya/ventory-be/internal/app/repo/item"
 	userRepo "github.com/vincentwijaya/ventory-be/internal/app/repo/user"
 	itemUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/item"
+	itemCategoryUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/item_category"
 	middlewareUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/middleware"
 	userUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/user"
 	"github.com/vincentwijaya/ventory-be/pkg/database"
@@ -75,9 +76,10 @@ func main() {
 	userUsecase := userUC.New(user, config.Server.JwtSecret)
 	middlewareUsecase := middlewareUC.New(config.Server.JwtSecret)
 	itemUsecase := itemUC.New(item)
+	itemCategoryUsecase := itemCategoryUC.New(item)
 
 	// Hanlder
-	httpHandler := handler.New(userUsecase, middlewareUsecase, itemUsecase)
+	httpHandler := handler.New(userUsecase, middlewareUsecase, itemUsecase, itemCategoryUsecase)
 
 	fmt.Printf("%+v", masterDB)
 
@@ -99,9 +101,12 @@ func main() {
 
 		onlyAdmin := secureEndpoint.With(httpHandler.OnlyAdmin)
 		onlyAdmin.Post("/register", httpHandler.Register)
+
 		onlyAdmin.Post("/item/", httpHandler.InsertItem)
 		onlyAdmin.Get("/item", httpHandler.GetItem)
 		onlyAdmin.Delete("/item/{id}", httpHandler.DeleteItem)
+
+		onlyAdmin.Post("/item/category/", httpHandler.InsertItemCategory)
 	})
 
 	log.Infof("Service Started on:%v", config.Server.Port)
