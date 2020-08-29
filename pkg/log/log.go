@@ -63,6 +63,16 @@ func InitLogger(env string, conf LogConfig, ctxData []string) {
 		pathMap[logrus.ErrorLevel] = conf.StdoutFile
 	}
 
+	rotateFileHook, _ := NewRotateFileHook(RotateFileConfig{
+		Filename:   conf.StdoutFile,
+		MaxSize:    50,
+		MaxBackups: 7,
+		MaxAge:     7,
+		Level:      logrus.DebugLevel,
+		Formatter:  formatter,
+	})
+	logger.AddHook(rotateFileHook)
+
 	logger.SetFormatter(formatter)
 	logger.SetLevel(getLevel(conf.Level))
 	if len(pathMap) > 0 {
