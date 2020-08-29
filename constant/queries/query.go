@@ -13,7 +13,7 @@ const (
 // Item Category
 const (
 	GetItemCategory        = "SELECT id, category_name FROM item_category WHERE id>=? AND is_deleted != 1 LIMIT ?"
-	CountItemCategory      = "SELECT COUNT(id) as total FROM item_category"
+	CountItemCategory      = "SELECT COUNT(id) as total FROM item_category WHERE is_deleted != 1"
 	InsertItemCategory     = "INSERT INTO `item_category` (`category_name`) VALUES (?)"
 	UpdateItemCategory     = "UPDATE item_category SET category_name=?, updated_at=? WHERE id=?"
 	SoftDeleteItemCategory = "UPDATE item_category SET is_deleted=1, updated_at=? WHERE id=?"
@@ -28,7 +28,7 @@ const (
 	          i.notes, i.created_at, i.updated_at
 						FROM items as i
 						WHERE i.id > ? AND i.is_deleted != 1 LIMIT ?`
-	CountItem            = "SELECT COUNT(id) as total FROM items"
+	CountItem            = "SELECT COUNT(id) as total FROM items WHERE is_deleted != 1"
 	FindItemByCategoryID = `SELECT id, item_name, category_id, buy_price, sell_price,
 													stock, created_at, updated_at, notes FROM items
 													WHERE category_id=?`
