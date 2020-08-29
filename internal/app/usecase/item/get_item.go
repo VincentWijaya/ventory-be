@@ -19,6 +19,11 @@ func (m *Module) GetItem(ctx context.Context, dataPerPage, lastID int64) (res en
 	if totalItem.Total > dataPerPage {
 		totalPage = int64(math.Ceil(float64(totalItem.Total) / float64(dataPerPage)))
 	}
+	if totalItem.Total == 0 {
+		res.TotalPage = 0
+		res.MaxDataPerPage = dataPerPage
+		return
+	}
 
 	items, err := m.itemRepo.FindItem(ctx, lastID, dataPerPage)
 	if err != nil {
