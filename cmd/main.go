@@ -107,6 +107,7 @@ func main() {
 		onlyAdmin.Delete("/item/{id}", httpHandler.DeleteItem)
 
 		onlyAdmin.Post("/item/category/", httpHandler.InsertItemCategory)
+		onlyAdmin.Post("/item/category/{id}", httpHandler.UpdateItemCategory)
 	})
 
 	log.Infof("Service Started on:%v", config.Server.Port)
