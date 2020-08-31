@@ -39,3 +39,11 @@ type (
 		MaxDataPerPage int64  `json:"maxDataPerPage"`
 	}
 )
+
+type (
+	GetItemCategoryResponse struct {
+		Category       []ItemCategory `json:"category"`
+		TotalPage      int64          `json:"totalPage"`
+		MaxDataPerPage int64          `json:"maxDataPerPage"`
+	}
+)
