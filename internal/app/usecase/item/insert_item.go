@@ -14,7 +14,19 @@ func (m *Module) InsertItem(ctx context.Context, req entity.Item) (err error) {
 		return
 	}
 
-	err = m.itemRepo.InsertItem(ctx, req)
+	insertResult, err := m.itemRepo.InsertItem(ctx, req)
+	if err != nil {
+		return
+	}
+
+	insertedItemID, err := insertResult.LastInsertId()
+	if err != nil {
+		return err
+	}
+
+	req.ID = insertedItemID
+
+	err = m.itemRepo.InsertItemHistory(ctx, req)
 
 	return err
 }

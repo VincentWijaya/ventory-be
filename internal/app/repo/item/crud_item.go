@@ -2,22 +2,23 @@ package item
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/vincentwijaya/ventory-be/constant/queries"
 	"github.com/vincentwijaya/ventory-be/internal/entity"
 	"github.com/vincentwijaya/ventory-be/pkg/log"
 )
 
-func (i *ItemModule) InsertItem(ctx context.Context, item entity.Item) error {
+func (i *ItemModule) InsertItem(ctx context.Context, item entity.Item) (sql.Result, error) {
 	q := i.MasterDB.Rebind(queries.InsertItem)
-	_, err := i.MasterDB.Exec(ctx, q, item.ItemName, item.CategoryID, item.BuyPrice,
+	insertResult, err := i.MasterDB.Exec(ctx, q, item.ItemName, item.CategoryID, item.BuyPrice,
 		item.SellPrice, item.Stock, item.Notes)
 
 	if err != nil {
 		log.Errorf("InsertItem: %+v", err)
 	}
 
-	return err
+	return insertResult, err
 }
 
 func (i *ItemModule) UpdateItem(ctx context.Context, item entity.Item) error {

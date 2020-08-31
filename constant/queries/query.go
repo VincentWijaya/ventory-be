@@ -41,5 +41,5 @@ const (
 )
 
 const (
-	InsertItemHistory = "INSERT INTO `items` (`item_id`, `category_id`, `buy_price`, `sell_price`, `stock`, `notes`, `created_at`) VALUES (?, ?, ?, ?, ?, ?, ?)"
+	InsertItemHistory = "INSERT INTO `item_history` (`item_id`, `buy_price`, `sell_price`, `stock`, `notes`) VALUES (?, ?, ?, ?, ?)"
 )
