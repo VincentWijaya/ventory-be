@@ -27,3 +27,13 @@ type Item struct {
 	CreatedAt    time.Time `json:"createdAt" db:"created_at"`
 	UpdatedAt    time.Time `json:"updatedAt" db:"updated_at"`
 }
+
+type ItemHistory struct {
+	ItemID       int64     `db:"item_id"`
+	BuyPrice     float64   `json:"buyPrice" db:"buy_price"`
+	SellPrice    float64   `json:"sellPrice" db:"sell_price"`
+	Stock        int64     `json:"stock" db:"stock"`
+	Notes        string    `json:"notes" db:"notes"`
+	CategoryName string    `json:"categoryName" db:"category_name"`
+	CreatedAt    time.Time `json:"createdAt" db:"created_at"`
+}

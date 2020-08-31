@@ -109,6 +109,7 @@ func main() {
 		onlyAdmin.Post("/item/", httpHandler.InsertItem)
 		onlyAdmin.Get("/item", httpHandler.GetItem)
 		onlyAdmin.Delete("/item/{id}", httpHandler.DeleteItem)
+		onlyAdmin.Post("/item/{id}", httpHandler.UpdateItem)
 
 		onlyAdmin.Post("/item/category/", httpHandler.InsertItemCategory)
 		onlyAdmin.Post("/item/category/{id}", httpHandler.UpdateItemCategory)
