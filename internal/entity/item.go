@@ -29,7 +29,8 @@ type Item struct {
 }
 
 type ItemHistory struct {
-	ItemID       int64     `db:"item_id"`
+	ID           int64     `json:"historyId" db:"id"`
+	ItemID       int64     `json:"itemId" db:"item_id"`
 	BuyPrice     float64   `json:"buyPrice" db:"buy_price"`
 	SellPrice    float64   `json:"sellPrice" db:"sell_price"`
 	Stock        int64     `json:"stock" db:"stock"`

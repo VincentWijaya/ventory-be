@@ -18,3 +18,12 @@ func (i *ItemModule) InsertItemHistory(ctx context.Context, item entity.Item) er
 
 	return err
 }
+
+func (i *ItemModule) FindItemHistoryByItemID(ctx context.Context, itemID int64) (res []entity.ItemHistory, err error) {
+	q := i.MasterDB.Rebind(queries.FindItemHistoryByItemID)
+	err = i.MasterDB.Select(ctx, &res, q, itemID)
+	if err != nil {
+		log.Errorf("FindItemHistoryByItemID: %+v", err)
+	}
+	return
+}
