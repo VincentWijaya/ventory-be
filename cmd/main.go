@@ -103,11 +103,12 @@ func main() {
 		secureEndpoint := r.With(httpHandler.SessionCheck)
 		secureEndpoint.Post("/session/verify", httpHandler.VerifySession)
 
+		secureEndpoint.Get("/item", httpHandler.GetItem)
+
 		onlyAdmin := secureEndpoint.With(httpHandler.OnlyAdmin)
 		onlyAdmin.Post("/register", httpHandler.Register)
 
 		onlyAdmin.Post("/item/", httpHandler.InsertItem)
-		onlyAdmin.Get("/item", httpHandler.GetItem)
 		onlyAdmin.Delete("/item/{id}", httpHandler.DeleteItem)
 		onlyAdmin.Post("/item/{id}", httpHandler.UpdateItem)
 
