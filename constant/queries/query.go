@@ -15,8 +15,8 @@ const (
 	GetItemCategory        = "SELECT id, category_name FROM item_category WHERE id>=? AND is_deleted != 1 LIMIT ?"
 	CountItemCategory      = "SELECT COUNT(id) as total FROM item_category WHERE is_deleted != 1"
 	InsertItemCategory     = "INSERT INTO `item_category` (`category_name`) VALUES (?)"
-	UpdateItemCategory     = "UPDATE item_category SET category_name=?, updated_at=? WHERE id=?"
-	SoftDeleteItemCategory = "UPDATE item_category SET is_deleted=1, updated_at=? WHERE id=?"
+	UpdateItemCategory     = "UPDATE item_category SET category_name=? WHERE id=?"
+	SoftDeleteItemCategory = "UPDATE item_category SET is_deleted=1 WHERE id=?"
 )
 
 // Item
@@ -33,8 +33,8 @@ const (
 													stock, created_at, updated_at, notes FROM items
 													WHERE category_id=?`
 	InsertItem     = "INSERT INTO `items` (`item_name`, `category_id`, `buy_price`, `sell_price`, `stock`, `notes`) VALUES (?, ?, ?, ?, ?, ?)"
-	UpdateItem     = "UPDATE items SET item_name=?, category_id=?, buy_price=?, sell_price=?, stock=?, notes=?, updated_at=? WHERE id=?"
-	SoftDeleteItem = "UPDATE items SET is_deleted=1, updated_at=? WHERE id=?"
+	UpdateItem     = "UPDATE items SET item_name=?, category_id=?, buy_price=?, sell_price=?, stock=?, notes=? WHERE id=?"
+	SoftDeleteItem = "UPDATE items SET is_deleted=1 WHERE id=?"
 	FindItemByID   = `SELECT id, item_name, category_id, buy_price, sell_price,
 										stock, created_at, updated_at, notes FROM items
 										WHERE id=?`
