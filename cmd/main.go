@@ -90,6 +90,10 @@ func main() {
 		},
 	}
 
+	httpRouter.NotFound(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(404)
+		w.Write([]byte("nothing here"))
+	})
 	httpRouter.Get("/ping", checker.ping)
 	httpRouter.Get("/health", checker.health)
 
@@ -108,6 +112,7 @@ func main() {
 
 		onlyAdmin.Post("/item/category/", httpHandler.InsertItemCategory)
 		onlyAdmin.Post("/item/category/{id}", httpHandler.UpdateItemCategory)
+		onlyAdmin.Delete("/item/category/{id}", httpHandler.DeleteItemCategory)
 	})
 
 	log.Infof("Service Started on:%v", config.Server.Port)

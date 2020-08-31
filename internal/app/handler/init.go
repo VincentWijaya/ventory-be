@@ -23,6 +23,7 @@ type (
 	UsecaseItemCategory interface {
 		InsertItemCategory(ctx context.Context, req entity.ItemCategory) (err error)
 		UpdateItemCategory(ctx context.Context, req entity.ItemCategory) error
+		DeleteItemCategory(ctx context.Context, categoryID int64) (err error)
 	}
 )
 
