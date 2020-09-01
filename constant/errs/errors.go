@@ -12,6 +12,7 @@ var (
 	BadConfig                   = errors.New("bad configuration on ventory")
 	InvalidJwt                  = errors.New("invalid jwt")
 	UsernameOrEmailAlreadyExist = errors.New("Username or email already taken")
+	InsufficientStock           = errors.New("insufficient stock")
 )
 
 var (
@@ -24,10 +25,12 @@ var (
 	UndefinedErrorCode              = "99"
 	InvalidJwtCode                  = "02"
 	UsernameOrEmailAlreadyExistCode = "01"
+	InsufficientStockCode           = "06"
 
 	//messages
 	GeneralErrorMessage                = "Saat ini sedang terjadi gangguan pada system, silahkan coba beberapa saat lagi"
 	NoDataMessage                      = "Data tidak di temukan"
 	UnauthorizedMessage                = "Pastikan username ataupun password yang anda masukkan sudah benar"
 	UsernameOrEmailAlreadyExistMessage = "Username atau email telah digunakan"
+	InsufficientStockMessage           = "Stock item tidak cukup"
 )

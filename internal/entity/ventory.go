@@ -47,3 +47,10 @@ type (
 		MaxDataPerPage int64          `json:"maxDataPerPage"`
 	}
 )
+
+type (
+	InsertSellingRequest struct {
+		ItemHistoryData ItemHistory `json:"item"`
+		QuantitySold    int64       `json:"quantity"`
+	}
+)
