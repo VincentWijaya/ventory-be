@@ -105,6 +105,7 @@ func main() {
 
 		secureEndpoint.Get("/item", httpHandler.GetItem)
 		secureEndpoint.Get("/item/category", httpHandler.GetItemCategory)
+		secureEndpoint.Get("/item/history/{id}", httpHandler.GetItemHistory)
 
 		onlyAdmin := secureEndpoint.With(httpHandler.OnlyAdmin)
 		onlyAdmin.Post("/register", httpHandler.Register)

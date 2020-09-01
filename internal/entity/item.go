@@ -29,12 +29,11 @@ type Item struct {
 }
 
 type ItemHistory struct {
-	ID           int64     `json:"historyId" db:"id"`
-	ItemID       int64     `json:"itemId" db:"item_id"`
-	BuyPrice     float64   `json:"buyPrice" db:"buy_price"`
-	SellPrice    float64   `json:"sellPrice" db:"sell_price"`
-	Stock        int64     `json:"stock" db:"stock"`
-	Notes        string    `json:"notes" db:"notes"`
-	CategoryName string    `json:"categoryName" db:"category_name"`
-	CreatedAt    time.Time `json:"createdAt" db:"created_at"`
+	ID        int64     `json:"historyId" db:"id"`
+	ItemID    int64     `json:"itemId" db:"item_id"`
+	BuyPrice  float64   `json:"buyPrice" db:"buy_price"`
+	SellPrice float64   `json:"sellPrice" db:"sell_price"`
+	Stock     int64     `json:"stock" db:"stock"`
+	Notes     string    `json:"notes" db:"notes"`
+	CreatedAt time.Time `json:"createdAt" db:"created_at"`
 }

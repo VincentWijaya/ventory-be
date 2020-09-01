@@ -20,6 +20,7 @@ type (
 		GetItem(ctx context.Context, dataPerPage, lastID int64) (res entity.GetItemResponse, err error)
 		DeleteItem(ctx context.Context, itemID int64) error
 		UpdateItem(ctx context.Context, req entity.Item) (err error)
+		GetItemHistoryByItemID(ctx context.Context, itemID int64) (res []entity.ItemHistory, err error)
 	}
 	UsecaseItemCategory interface {
 		InsertItemCategory(ctx context.Context, req entity.ItemCategory) (err error)
