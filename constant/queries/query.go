@@ -41,6 +41,6 @@ const (
 )
 
 const (
-	InsertItemHistory       = "INSERT INTO `item_history` (`item_id`, `buy_price`, `sell_price`, `stock`, `notes`) VALUES (?, ?, ?, ?, ?)"
-	FindItemHistoryByItemID = "SELECT * FROM item_history WHERE item_id=? ORDER BY id DESC LIMIT 5"
+	InsertItemHistory      = "INSERT INTO `item_history` (`item_id`, `buy_price`, `sell_price`, `stock`, `notes`) VALUES (?, ?, ?, ?, ?)"
+	GetItemHistoryByItemID = "SELECT * FROM item_history WHERE item_id=? ORDER BY id DESC LIMIT 5"
 )
