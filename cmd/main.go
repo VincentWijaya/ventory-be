@@ -158,7 +158,7 @@ func (sys *systemCheck) health(w http.ResponseWriter, r *http.Request) {
 }
 
 func getConfigLocation() (string, string) {
-	env := os.Getenv("PRAKERJA_ENV")
+	env := os.Getenv("ENV")
 	location := devFileLocation
 	name := devFileName
 	if env == "staging" || env == "production" || env == "development" {
