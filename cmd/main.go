@@ -10,10 +10,12 @@ import (
 
 	"github.com/go-chi/chi"
 	itemRepo "github.com/vincentwijaya/ventory-be/internal/app/repo/item"
+	sellingRepo "github.com/vincentwijaya/ventory-be/internal/app/repo/selling"
 	userRepo "github.com/vincentwijaya/ventory-be/internal/app/repo/user"
 	itemUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/item"
 	itemCategoryUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/item_category"
 	middlewareUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/middleware"
+	sellingUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/selling"
 	userUC "github.com/vincentwijaya/ventory-be/internal/app/usecase/user"
 	"github.com/vincentwijaya/ventory-be/pkg/database"
 	"github.com/vincentwijaya/ventory-be/pkg/log"
@@ -71,15 +73,17 @@ func main() {
 	// Repository
 	user := userRepo.New(masterDB)
 	item := itemRepo.New(masterDB)
+	selling := sellingRepo.New(masterDB)
 
 	// Usecase
 	userUsecase := userUC.New(user, config.Server.JwtSecret)
 	middlewareUsecase := middlewareUC.New(config.Server.JwtSecret)
 	itemUsecase := itemUC.New(item)
 	itemCategoryUsecase := itemCategoryUC.New(item)
+	sellingUsecase := sellingUC.New(selling, item, itemUsecase)
 
 	// Hanlder
-	httpHandler := handler.New(userUsecase, middlewareUsecase, itemUsecase, itemCategoryUsecase)
+	httpHandler := handler.New(userUsecase, middlewareUsecase, itemUsecase, itemCategoryUsecase, sellingUsecase)
 
 	fmt.Printf("%+v", masterDB)
 
@@ -106,6 +110,8 @@ func main() {
 		secureEndpoint.Get("/item", httpHandler.GetItem)
 		secureEndpoint.Get("/item/category", httpHandler.GetItemCategory)
 		secureEndpoint.Get("/item/history/{id}", httpHandler.GetItemHistory)
+
+		secureEndpoint.Post("/selling/", httpHandler.InsertSelling)
 
 		onlyAdmin := secureEndpoint.With(httpHandler.OnlyAdmin)
 		onlyAdmin.Post("/register", httpHandler.Register)

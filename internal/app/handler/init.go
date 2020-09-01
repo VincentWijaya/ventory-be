@@ -28,6 +28,10 @@ type (
 		DeleteItemCategory(ctx context.Context, categoryID int64) (err error)
 		GetItemCategory(ctx context.Context, dataPerPage, lastID int64) (res entity.GetItemCategoryResponse, err error)
 	}
+
+	UsecaseSelling interface {
+		InsertSelling(ctx context.Context, req entity.InsertSellingRequest) error
+	}
 )
 
 type Module struct {
@@ -35,13 +39,16 @@ type Module struct {
 	middleware   UsecaseMiddleware
 	item         UsecaseItem
 	itemCategory UsecaseItemCategory
+	selling      UsecaseSelling
 }
 
-func New(user UsecaseUser, middleware UsecaseMiddleware, item UsecaseItem, itemCategory UsecaseItemCategory) *Module {
+func New(user UsecaseUser, middleware UsecaseMiddleware, item UsecaseItem, itemCategory UsecaseItemCategory,
+	selling UsecaseSelling) *Module {
 	return &Module{
 		user:         user,
 		middleware:   middleware,
 		item:         item,
 		itemCategory: itemCategory,
+		selling:      selling,
 	}
 }

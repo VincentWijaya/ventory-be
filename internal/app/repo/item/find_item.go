@@ -50,7 +50,7 @@ func (i *ItemModule) FindItemByCategory(ctx context.Context, categoryID int64) (
 }
 
 func (i *ItemModule) FindItemByID(ctx context.Context, itemID int64) (res entity.Item, err error) {
-	q := i.MasterDB.Rebind(queries.FindItemByCategoryID)
+	q := i.MasterDB.Rebind(queries.FindItemByID)
 	err = i.MasterDB.Get(ctx, &res, q, itemID)
 	if err == sql.ErrNoRows {
 		err = nil

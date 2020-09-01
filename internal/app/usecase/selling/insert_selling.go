@@ -5,11 +5,12 @@ import (
 
 	"github.com/vincentwijaya/ventory-be/constant/errs"
 	"github.com/vincentwijaya/ventory-be/internal/entity"
+	"github.com/vincentwijaya/ventory-be/pkg/log"
 )
 
 func (m *Module) InsertSelling(ctx context.Context, req entity.InsertSellingRequest) (err error) {
 	// validate request
-	if req.ItemHistoryData.ItemID <= 0 || req.ItemHistoryData.ID <= 0 || req.ItemHistoryData.Notes == "" || req.ItemHistoryData.SellPrice <= 0 || req.ItemHistoryData.Stock <= 0 || req.QuantitySold <= 0 {
+	if req.ItemHistoryData.ItemID <= 0 || req.ItemHistoryData.ID <= 0 || req.ItemHistoryData.SellPrice <= 0 || req.ItemHistoryData.Stock <= 0 || req.QuantitySold <= 0 {
 		err = errs.BadRequest
 		return
 	}
@@ -41,19 +42,22 @@ func (m *Module) InsertSelling(ctx context.Context, req entity.InsertSellingRequ
 		GrossTotal:    grossTotal,
 		NetSell:       netSell,
 	}
+	log.Infof("Insert selling: %+v", insertSelling)
 	err = m.sellingRepo.InsertSelling(ctx, insertSelling)
 	if err != nil {
 		return
 	}
 
 	updateItem := entity.Item{
-		ID:        findItem.ID,
-		ItemName:  findItem.ItemName,
-		BuyPrice:  findItem.BuyPrice,
-		SellPrice: findItem.SellPrice,
-		Notes:     findItem.Notes,
-		Stock:     findItem.Stock - req.QuantitySold,
+		ID:         findItem.ID,
+		ItemName:   findItem.ItemName,
+		BuyPrice:   findItem.BuyPrice,
+		SellPrice:  findItem.SellPrice,
+		Notes:      findItem.Notes,
+		Stock:      findItem.Stock - req.QuantitySold,
+		CategoryID: findItem.CategoryID,
 	}
+	log.Infof("Update item: %+v", updateItem)
 	err = m.itemUsecase.UpdateItem(ctx, updateItem)
 	if err != nil {
 		return
