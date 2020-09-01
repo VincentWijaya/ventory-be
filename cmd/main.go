@@ -151,7 +151,7 @@ func (sys *systemCheck) health(w http.ResponseWriter, r *http.Request) {
 			status = "Error"
 			message = err.Error()
 		}
-		duration := time.Now().Sub(start).Nanoseconds()
+		duration := time.Now().Sub(start).Milliseconds()
 		str = fmt.Sprintf("%s%s | %s | %s | %dms\n", str, k, status, message, duration)
 	}
 	_, _ = w.Write([]byte(str))
